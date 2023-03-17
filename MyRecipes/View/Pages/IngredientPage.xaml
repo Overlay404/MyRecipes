@@ -10,22 +10,121 @@
       DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
     <Grid>
-        <DataGrid ItemsSource="{Binding Ingredient}" AutoGenerateColumns="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <DataGrid ItemsSource="{Binding Ingredient}"
+                  x:Name="IngredientDataGrid"
+                  AutoGenerateColumns="False"
+                  Grid.ColumnSpan="3">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Наименование ингредиентов" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Цена" Binding="{Binding CostWithCount}"/>
-                <DataGridTextColumn Header="В наличии" Binding="{Binding CountWithUnit}"/>
-                <DataGridTemplateColumn Header="Действия">
+                <DataGridTextColumn Header="Наименование ингредиентов"
+                                    Binding="{Binding Name}"
+                                    Width="*"/>
+                <DataGridTextColumn Header="Цена"
+                                    Width="*">
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding StringFormat="{}{0:f2} руб. за {1} {2}.">
+                            <Binding Path="Cost"/>
+                            <Binding Path="CostForCount"/>
+                            <Binding Path="Unit.Name"/>
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="В наличии"
+                                    Binding="{Binding AvailableCount}"
+                                    Width="*"/>
+                <DataGridTemplateColumn Header="Действия"
+                                        Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel>
-                                <TextBlock Text="Редактровать" FontStyle="Oblique" Foreground="Blue"/>
-                                <TextBlock Text="Удалить" FontStyle="Oblique" Foreground="Red"/>
+                                <Button Content="Редактровать"
+                                        FontStyle="Oblique"
+                                        Foreground="Blue"
+                                        Click="ButtonEdit_Click"/>
+
+                                <Button Content="Удалить"
+                                        FontStyle="Oblique"
+                                        Foreground="Red"
+                                        Click="ButtonDelete_Click"/>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+        
+        <StackPanel Orientation="Horizontal"
+                    Grid.Column="0"
+                    Grid.Row="1"
+                    HorizontalAlignment="Center">
+            <Button Content="&lt;&lt;"
+                    Margin="0 0 20 0"
+                    Padding="5 3"
+                    Click="ShiftOnAllPageLeft"/>
+
+            <Button Content="&lt;"
+                    Margin="0 0 20 0"
+                    Padding="5 3"
+                    Click="ShiftOnOnePageLeft"/>
+
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Margin="0 0 20 0">
+                
+                <TextBlock Padding="5 3"
+                           Text="{Binding NumberPage}"/>
+
+                <TextBlock Padding="5 3"
+                           Text="/"/>
+
+                <TextBlock Padding="5 3"
+                           Text="{Binding TotalNumberPages}"/>
+            </StackPanel>
+
+            <Button Content=">"
+                    Margin="0 0 20 0"
+                    Padding="5 3"
+                    Click="ShiftOnOnePageRigth"/>
+
+            <Button Content=">>"
+                    Padding="5 3"
+                    Click="ShiftOnAllPageRigth"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal"
+                    Grid.Column="1"
+                    Grid.Row="1">
+
+            <TextBlock Text="Количество записей на одной странице:"/>
+            <ComboBox ItemsSource="{Binding NumberEntriestOnOnePage}"
+                      x:Name="CountEntriestComboBox"
+                      SelectedIndex="0"
+                      SelectionChanged="CountEntriestComboBox_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding .}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+
+        <Button Grid.Column="2"
+                Grid.Row="1"
+                Content="+"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right"
+                Padding="5 2"
+                Margin="0 0 30 0"
+                FontSize="15"/>
     </Grid>
 </Page>
