@@ -1,18 +1,7 @@
 ﻿using MyRecipes.Model;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MyRecipes.View.Pages
 {
@@ -21,19 +10,59 @@ namespace MyRecipes.View.Pages
     /// </summary>
     public partial class EditAndAddEngridient : Page
     {
-        public Ingredient Ingredient
-        {
-            get { return (Ingredient)GetValue(IngredientProperty); }
-            set { SetValue(IngredientProperty, value); }
-        }
-        public static readonly DependencyProperty IngredientProperty =
-            DependencyProperty.Register("Ingredient", typeof(Ingredient), typeof(EditAndAddEngridient));
-
         public EditAndAddEngridient(Ingredient ingredient)
         {
-            Ingredient = ingredient; 
+            Ingredient = ingredient;
+
+            Units = App.db.Unit.Local.ToList();
 
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            switch (AskClose())
+            {
+                case MessageBoxResult.Yes:
+                    IngredientPage.Instance.IngredientDataGrid.Items.Refresh();
+
+                    MainWindow.Instance.ProductFrame.Navigate(new IngredientPage());
+
+                    MainWindow.Instance.AllCostIngredientText.Visibility = Visibility.Visible;
+                    MainWindow.Instance.CountIngredientText.Visibility = Visibility.Visible;
+                    break;
+
+                case MessageBoxResult.No:
+                    foreach (var entry in App.db.ChangeTracker.Entries().Where(entry => entry.State == System.Data.Entity.EntityState.Modified))
+                        entry.CurrentValues.SetValues(entry.OriginalValues);
+
+                    IngredientPage.Instance.IngredientDataGrid.Items.Refresh();
+
+                    MainWindow.Instance.ProductFrame.Navigate(new IngredientPage());
+
+                    MainWindow.Instance.AllCostIngredientText.Visibility = Visibility.Visible;
+                    MainWindow.Instance.CountIngredientText.Visibility = Visibility.Visible;
+
+                    break;
+            }
+        }
+
+        private void TransitionInMainFrame()
+        {
+
+        }
+
+
+        #region Методы сообщений
+        private MessageBoxResult Ask() => MessageBox.Show("Вы действительно хотите сохранить эти маленькие данные",
+                                                           "Уведомление",
+                                                           MessageBoxButton.YesNo,
+                                                           MessageBoxImage.Warning);
+
+        private MessageBoxResult AskClose() => MessageBox.Show("Вы действительно хотите выйти, данные не сохранятся",
+                                               "Уведомление",
+                                               MessageBoxButton.YesNo,
+                                               MessageBoxImage.Warning);
+        #endregion
     }
 }

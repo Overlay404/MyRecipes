@@ -24,6 +24,8 @@ namespace MyRecipes.View.Pages
     {
         private int CountEntriestOnPage = 4; // количество записей на одной странице
 
+        public static IngredientPage Instance { get; private set; }
+
         private IEnumerable<Ingredient> TestIEnumerableIngredients;
 
         public IngredientPage()
@@ -40,6 +42,8 @@ namespace MyRecipes.View.Pages
 
 
             InitializeComponent();
+
+            Instance = this;
         }
 
         #region Основыние методы до Инициализации
@@ -61,7 +65,10 @@ namespace MyRecipes.View.Pages
             Ingredient ingredient = IngredientDataGrid.SelectedItem as Ingredient;
 
             MainWindow.Instance.ProductFrame.Navigate(new EditAndAddEngridient(ingredient));
-            
+
+            MainWindow.Instance.AllCostIngredientText.Visibility = Visibility.Collapsed;
+            MainWindow.Instance.CountIngredientText.Visibility = Visibility.Collapsed;
+
         }
         #endregion
 

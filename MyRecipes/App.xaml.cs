@@ -1,11 +1,5 @@
 ﻿using MyRecipes.Model;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace MyRecipes
@@ -20,6 +14,7 @@ namespace MyRecipes
         public App()
         {
             db.Ingredient.Load();
+            db.Unit.Load();
         }
     }
 }

@@ -17,13 +17,16 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal"
                     VerticalAlignment="Center"
-                    Grid.Row="0"
+                    Grid.Row="1"
                     HorizontalAlignment="Center">
-            <TextBlock Text="Наименование"/>
+            <TextBlock Text="Наименование"
+                       Margin="0 0 10 0"/>
             <TextBox x:Name="Name"
                      Text="{Binding Ingredient.Name}"
                      Padding="5 3"
@@ -33,8 +36,9 @@
         <StackPanel Orientation="Horizontal"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
-                    Grid.Row="1">
-            <TextBlock Text="Цена (руб.)"/>
+                    Grid.Row="2">
+            <TextBlock Text="Цена (руб.)"
+                       Margin="0 0 10 0"/>
             <TextBox x:Name="Cost"
                      Text="{Binding Ingredient.Cost}"
                      MinWidth="200"
@@ -44,19 +48,21 @@
         <StackPanel Orientation="Horizontal"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
-                    Grid.Row="2">
-            <TextBlock Text="За количество"/>
+                    Grid.Row="3">
+            <TextBlock Text="За количество"
+                       Margin="0 0 10 0"/>
             <TextBox x:Name="CountForCount"
                      Text="{Binding Ingredient.CostForCount}"
                      Padding="5 3"
                      MinWidth="150"
                      Margin="0 0 10 0"/>
-            <ComboBox ItemsSource="{Binding NumberEntriestOnOnePage}"
+            <ComboBox ItemsSource="{Binding Units}"
+                      MinWidth="100"
                       x:Name="CostForCountComboBox"
-                      SelectedIndex="0">
+                      SelectedIndex="{Binding Ingredient.UnitId}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding .}"/>
+                        <TextBlock Text="{Binding Name}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
@@ -65,8 +71,9 @@
         <StackPanel Orientation="Horizontal"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
-                    Grid.Row="3">
-            <TextBlock Text="В холодильнике"/>
+                    Grid.Row="4">
+            <TextBlock Text="В холодильнике"
+                       Margin="0 0 10 0"/>
             <TextBox x:Name="Cousnt"
                      Text="{Binding Ingredient.AvailableCount}"
                      MinWidth="200"
@@ -77,11 +84,13 @@
                     Grid.RowSpan="2"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Grid.Row="4">
+                    Grid.Row="5">
             <Button Content="Добавить"
+                    FontSize="15"
                     Margin="0 0 20 0"
                     Padding="5 3"/>
-            <Button Content="Отменить"/>
+            <Button Content="Отменить"
+                    FontSize="15" Click="Button_Click"/>
         </StackPanel>
     </Grid>
 </Page>

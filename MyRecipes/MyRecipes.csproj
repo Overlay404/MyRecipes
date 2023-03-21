@@ -162,6 +162,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <Compile Include="View\Pages\DependencyProperties\IngredientPage.Extension.cs" />
+    <Compile Include="View\Pages\DependencyProperties\EditAndAddEngridient.Extension.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
