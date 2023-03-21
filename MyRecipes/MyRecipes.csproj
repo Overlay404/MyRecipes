@@ -68,11 +68,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Pages\IngredientPage.xaml">
+    <Page Include="View\Pages\EditAndAddEngridient.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Windows\EditAndAddNewIngredient.xaml">
+    <Page Include="View\Pages\IngredientPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -120,11 +120,11 @@
     <Compile Include="View\Pages\DishesPage.xaml.cs">
       <DependentUpon>DishesPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Pages\EditAndAddEngridient.xaml.cs">
+      <DependentUpon>EditAndAddEngridient.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Pages\IngredientPage.xaml.cs">
       <DependentUpon>IngredientPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\Windows\EditAndAddNewIngredient.xaml.cs">
-      <DependentUpon>EditAndAddNewIngredient.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

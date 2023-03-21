@@ -38,21 +38,17 @@ namespace MyRecipes.View.Pages
 
             CallingMethodsBeforeInitialization();
 
-            InitializeComponent();
 
-            CallingMethodsAfterInitialization();
+            InitializeComponent();
         }
 
-        #region Основыние методы до и после Инициализации
+        #region Основыние методы до Инициализации
         private void CallingMethodsBeforeInitialization()
         {
+            ValidateCountIngridient();
+
             ValidateTotalCountPage();
             PageProcessing();
-        }
-
-        private void CallingMethodsAfterInitialization()
-        {
-            
         }
         #endregion
 
@@ -63,15 +59,16 @@ namespace MyRecipes.View.Pages
                 return;
 
             Ingredient ingredient = IngredientDataGrid.SelectedItem as Ingredient;
-            
 
+            MainWindow.Instance.ProductFrame.Navigate(new EditAndAddEngridient(ingredient));
+            
         }
         #endregion
 
         #region Удаление
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
-
+            ValidateCountIngridient();
         }
         #endregion
 
@@ -80,6 +77,11 @@ namespace MyRecipes.View.Pages
         {
             ValidateCountEntriestOnPage();
             ValidateTotalCountPage();
+
+            if (NumberPage >= TotalNumberPages)
+                NumberPage = TotalNumberPages;
+
+
             PageProcessing();
         }
         
@@ -126,6 +128,11 @@ namespace MyRecipes.View.Pages
             Ingredient = Ingredient.Cast<Ingredient>()
                                    .Skip((NumberPage - 1) * CountEntriestOnPage)
                                    .Take(CountEntriestOnPage);
+        }
+
+        private void ValidateCountIngridient()
+        {
+            MainWindow.Instance.CountIngredient = TestIEnumerableIngredients.Count();
         }
 
         private void ValidateTotalCountPage()

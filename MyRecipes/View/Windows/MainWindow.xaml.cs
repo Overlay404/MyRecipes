@@ -21,7 +21,7 @@ namespace MyRecipes
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        public static MainWindow Instance { get; private set; }
 
         public string NameChapter
         {
@@ -56,6 +56,9 @@ namespace MyRecipes
         public MainWindow()
         {
             InitializeComponent();
+
+            Instance = this;
+
             ProductFrame.Navigate(new IngredientPage());
         }
 

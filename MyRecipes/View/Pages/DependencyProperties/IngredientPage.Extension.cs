@@ -13,7 +13,7 @@ namespace MyRecipes.View.Pages
         }
 
         public static readonly DependencyProperty TotalNumberPagesProperty =
-            DependencyProperty.Register("TotalNumberPages", typeof(int), typeof(MainWindow));
+            DependencyProperty.Register("TotalNumberPages", typeof(int), typeof(IngredientPage));
 
         public int NumberPage // номер страницы на которой находится пользователь
         {
@@ -22,7 +22,7 @@ namespace MyRecipes.View.Pages
         }
 
         public static readonly DependencyProperty NumberPageProperty =
-            DependencyProperty.Register("NumberPage", typeof(int), typeof(MainWindow));
+            DependencyProperty.Register("NumberPage", typeof(int), typeof(IngredientPage));
 
         public IEnumerable<Ingredient> Ingredient // все записи
         {
@@ -40,6 +40,6 @@ namespace MyRecipes.View.Pages
         }
 
         public static readonly DependencyProperty NumberEntriestOnOnePageProperty =
-            DependencyProperty.Register("NumberEntriestOnOnePage", typeof(List<int>), typeof(MainWindow));
+            DependencyProperty.Register("NumberEntriestOnOnePage", typeof(List<int>), typeof(IngredientPage));
     }
 }

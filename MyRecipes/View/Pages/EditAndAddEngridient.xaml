@@ -1,0 +1,87 @@
+﻿<Page x:Class="MyRecipes.View.Pages.EditAndAddEngridient"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MyRecipes.View.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="EditAndAddEngridient"
+      DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal"
+                    VerticalAlignment="Center"
+                    Grid.Row="0"
+                    HorizontalAlignment="Center">
+            <TextBlock Text="Наименование"/>
+            <TextBox x:Name="Name"
+                     Text="{Binding Ingredient.Name}"
+                     Padding="5 3"
+                     MinWidth="200"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Grid.Row="1">
+            <TextBlock Text="Цена (руб.)"/>
+            <TextBox x:Name="Cost"
+                     Text="{Binding Ingredient.Cost}"
+                     MinWidth="200"
+                     Padding="5 3"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Grid.Row="2">
+            <TextBlock Text="За количество"/>
+            <TextBox x:Name="CountForCount"
+                     Text="{Binding Ingredient.CostForCount}"
+                     Padding="5 3"
+                     MinWidth="150"
+                     Margin="0 0 10 0"/>
+            <ComboBox ItemsSource="{Binding NumberEntriestOnOnePage}"
+                      x:Name="CostForCountComboBox"
+                      SelectedIndex="0">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding .}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Grid.Row="3">
+            <TextBlock Text="В холодильнике"/>
+            <TextBox x:Name="Cousnt"
+                     Text="{Binding Ingredient.AvailableCount}"
+                     MinWidth="200"
+                     Padding="5 3"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal"
+                    Grid.RowSpan="2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Grid.Row="4">
+            <Button Content="Добавить"
+                    Margin="0 0 20 0"
+                    Padding="5 3"/>
+            <Button Content="Отменить"/>
+        </StackPanel>
+    </Grid>
+</Page>
