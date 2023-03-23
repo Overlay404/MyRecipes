@@ -22,5 +22,13 @@ namespace MyRecipes.View.Pages
 
         public static readonly DependencyProperty UnitsProperty =
             DependencyProperty.Register("Units", typeof(List<Unit>), typeof(EditAndAddEngridient));
+
+        public string ContentButtonEditOrAdd
+        {
+            get { return (string)GetValue(ContentButtonEditOrAddProperty); }
+            set { SetValue(ContentButtonEditOrAddProperty, value); }
+        }
+        public static readonly DependencyProperty ContentButtonEditOrAddProperty =
+            DependencyProperty.Register("ContentButtonEditOrAdd", typeof(string), typeof(EditAndAddEngridient));
     }
 }

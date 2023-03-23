@@ -1,19 +1,9 @@
 ﻿using MyRecipes.Model;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MyRecipes.View.Pages
 {
@@ -40,7 +30,6 @@ namespace MyRecipes.View.Pages
 
             CallingMethodsBeforeInitialization();
 
-
             InitializeComponent();
 
             Instance = this;
@@ -50,7 +39,6 @@ namespace MyRecipes.View.Pages
         private void CallingMethodsBeforeInitialization()
         {
             ValidateCountIngridient();
-
             ValidateTotalCountPage();
             PageProcessing();
         }
@@ -75,7 +63,35 @@ namespace MyRecipes.View.Pages
         #region Удаление
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
+            if (IngredientDataGrid.SelectedItem == null)
+                return;
+
+            if (MessageBox.Show("Вы действительно хотите удалить эту запись?",
+                                "Уведомление",
+                                MessageBoxButton.YesNo,
+                                MessageBoxImage.Question) == MessageBoxResult.No)
+                return;
+
+            Ingredient ingredient = IngredientDataGrid.SelectedItem as Ingredient;
+
+            App.db.Ingredient.Local.Remove(ingredient);
+            App.db.SaveChanges();
+
+            NumberPage = 1;
+
+            PageProcessing();
+            ValidateTotalCountPage();
             ValidateCountIngridient();
+        }
+        #endregion
+
+        #region Добавление
+        private void Button_AddNewIngridient(object sender, RoutedEventArgs e)
+        {
+            MainWindow.Instance.ProductFrame.Navigate(new EditAndAddEngridient());
+
+            MainWindow.Instance.AllCostIngredientText.Visibility = Visibility.Collapsed;
+            MainWindow.Instance.CountIngredientText.Visibility = Visibility.Collapsed;
         }
         #endregion
 
@@ -88,10 +104,9 @@ namespace MyRecipes.View.Pages
             if (NumberPage >= TotalNumberPages)
                 NumberPage = TotalNumberPages;
 
-
             PageProcessing();
         }
-        
+
         private void ShiftOnOnePageLeft(object sender, RoutedEventArgs e)
         {
             if ((NumberPage - 1) <= 0)
@@ -164,6 +179,5 @@ namespace MyRecipes.View.Pages
             CountEntriestOnPage = (int)CountEntriestComboBox.SelectedItem;
         }
         #endregion
-
     }
 }

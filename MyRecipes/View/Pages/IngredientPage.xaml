@@ -125,6 +125,6 @@
                 HorizontalAlignment="Right"
                 Padding="5 2"
                 Margin="0 0 30 0"
-                FontSize="15"/>
+                FontSize="15" Click="Button_AddNewIngridient"/>
     </Grid>
 </Page>

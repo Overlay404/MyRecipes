@@ -85,12 +85,12 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Grid.Row="5">
-            <Button Content="Добавить"
+            <Button Content="{Binding ContentButtonEditOrAdd}"
                     FontSize="15"
                     Margin="0 0 20 0"
-                    Padding="5 3"/>
+                    Padding="5 3" Click="Button_Click_AddOrEdit"/>
             <Button Content="Отменить"
-                    FontSize="15" Click="Button_Click"/>
+                    FontSize="15" Click="Button_Click_Cancellation"/>
         </StackPanel>
     </Grid>
 </Page>
