@@ -64,7 +64,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="View\Pages\DishesPage.xaml">
+    <Page Include="View\Pages\Dishes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -117,8 +117,9 @@
     <Compile Include="Model\Unit.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="View\Pages\DishesPage.xaml.cs">
-      <DependentUpon>DishesPage.xaml</DependentUpon>
+    <Compile Include="View\Pages\DependencyProperties\Dishes.Extension.cs" />
+    <Compile Include="View\Pages\Dishes.xaml.cs">
+      <DependentUpon>Dishes.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Pages\EditAndAddEngridient.xaml.cs">
       <DependentUpon>EditAndAddEngridient.xaml</DependentUpon>

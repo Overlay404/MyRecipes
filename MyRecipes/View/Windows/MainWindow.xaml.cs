@@ -65,7 +65,7 @@ namespace MyRecipes
         //Кнопка Блюд
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            ProductFrame.Navigate(new DishesPage());
+            ProductFrame.Navigate(new Dishes());
         }
 
         //Кнопка ингредиенты

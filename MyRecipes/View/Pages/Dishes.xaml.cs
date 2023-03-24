@@ -16,12 +16,14 @@ using System.Windows.Shapes;
 namespace MyRecipes.View.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для DishesPage.xaml
+    /// Логика взаимодействия для Dishes.xaml
     /// </summary>
-    public partial class DishesPage : Page
+    public partial class Dishes : Page
     {
-        public DishesPage()
+        public Dishes()
         {
+            Categories = App.db.Category.Local.ToList();
+
             InitializeComponent();
         }
     }
