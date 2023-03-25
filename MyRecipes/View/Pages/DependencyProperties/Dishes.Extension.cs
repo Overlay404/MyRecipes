@@ -15,5 +15,17 @@ namespace MyRecipes.View.Pages
             DependencyProperty.Register("Categories", typeof(List<Category>), typeof(Dishes));
 
 
+
+        public IEnumerable<Dish> DishCollection
+        {
+            get { return (IEnumerable<Dish>)GetValue(DishCollectionProperty); }
+            set { SetValue(DishCollectionProperty, value); }
+        }
+
+        public static readonly DependencyProperty DishCollectionProperty =
+            DependencyProperty.Register("DishCollection", typeof(IEnumerable<Dish>), typeof(Dishes));
+
+
+
     }
 }
