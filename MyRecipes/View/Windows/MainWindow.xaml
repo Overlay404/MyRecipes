@@ -40,7 +40,7 @@
                        x:Name="CountIngredientText"
                        VerticalAlignment="Bottom"
                        FontSize="15"/>
-            <TextBlock Text="{Binding AllCostIngredient, StringFormat='Запасов в холодильнике на сумму {0} руб.'}"
+            <TextBlock Text="{Binding AllCostIngredient, StringFormat='Запасов в холодильнике на сумму {0:f} руб.'}"
                        x:Name="AllCostIngredientText"
                        VerticalAlignment="Bottom"
                        HorizontalAlignment="Right"
