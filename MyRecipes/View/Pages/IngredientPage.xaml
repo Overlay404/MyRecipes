@@ -9,7 +9,7 @@
       Title="IngredientPage"
       DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
-    <Grid>
+    <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
@@ -19,11 +19,21 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
+        <TextBlock Text="{Binding CountIngredient, StringFormat={}{0} наименование}"
+                       x:Name="CountIngredientText"
+                       VerticalAlignment="Top"
+                       FontSize="15"/>
+        <TextBlock Text="{Binding AllCostIngredient, StringFormat='Запасов в холодильнике на сумму {0:f} руб.'}"
+                       x:Name="AllCostIngredientText"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Right"
+                       FontSize="15" Grid.ColumnSpan="3"/>
         <DataGrid ItemsSource="{Binding Ingredient}"
                   x:Name="IngredientDataGrid"
                   AutoGenerateColumns="False"
-                  Grid.ColumnSpan="3">
+                  Grid.ColumnSpan="3"
+                  Margin="0 88 0 0"
+                  Background="White">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Наименование ингредиентов"
                                     Binding="{Binding Name}"
@@ -36,7 +46,7 @@
                             <Binding Path="CostForCount"/>
                             <Binding Path="Unit.Name"/>
                         </MultiBinding>
-                    </DataGridTextColumn.Binding>
+                    </DataGridTextColumn.Binding>  
                 </DataGridTextColumn>
                 <DataGridTextColumn Header="В наличии"
                                     Binding="{Binding AvailableCount}"

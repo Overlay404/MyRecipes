@@ -60,5 +60,10 @@ namespace MyRecipes.View.Pages
             if (CostForCountComboBox.SelectedIndex != 0) DishCollection = dishSort;
             else DishCollection = dishes.Where(d => d.Name.ToLower().StartsWith(Search.Text.Trim().ToLower()));
         }
+
+        private void ListView_Selected(object sender, RoutedEventArgs e)
+        {
+            MainWindow.Instance.ProductFrame.Navigate(new AboutDish(DishesListView.SelectedItem as Dish));
+        }
     }
 }

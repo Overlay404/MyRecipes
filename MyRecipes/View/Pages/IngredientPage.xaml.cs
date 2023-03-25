@@ -14,6 +14,26 @@ namespace MyRecipes.View.Pages
     {
         private int CountEntriestOnPage = 4; // количество записей на одной странице
 
+        public int CountIngredient
+        {
+            get { return (int)GetValue(CountIngredientProperty); }
+            set { SetValue(CountIngredientProperty, value); }
+        }
+
+        public static readonly DependencyProperty CountIngredientProperty =
+            DependencyProperty.Register("CountIngredient", typeof(int), typeof(MainWindow));
+
+
+        public decimal AllCostIngredient
+        {
+            get { return (decimal)GetValue(AllCostIngredientProperty); }
+            set { SetValue(AllCostIngredientProperty, value); }
+        }
+
+        public static readonly DependencyProperty AllCostIngredientProperty =
+            DependencyProperty.Register("AllCostIngredient", typeof(decimal), typeof(MainWindow));
+
+
         public static IngredientPage Instance { get; private set; }
 
         private IEnumerable<Ingredient> TestIEnumerableIngredients;
@@ -29,6 +49,8 @@ namespace MyRecipes.View.Pages
             NumberEntriestOnOnePage = new List<int>();
 
             CallingMethodsBeforeInitialization();
+
+            AllCostIngredient = App.db.Ingredient.Sum(i => i.Cost);
 
             InitializeComponent();
 
@@ -54,8 +76,8 @@ namespace MyRecipes.View.Pages
 
             MainWindow.Instance.ProductFrame.Navigate(new EditAndAddEngridient(ingredient));
 
-            MainWindow.Instance.AllCostIngredientText.Visibility = Visibility.Collapsed;
-            MainWindow.Instance.CountIngredientText.Visibility = Visibility.Collapsed;
+            AllCostIngredientText.Visibility = Visibility.Collapsed;
+            CountIngredientText.Visibility = Visibility.Collapsed;
 
         }
         #endregion
@@ -90,8 +112,8 @@ namespace MyRecipes.View.Pages
         {
             MainWindow.Instance.ProductFrame.Navigate(new EditAndAddEngridient());
 
-            MainWindow.Instance.AllCostIngredientText.Visibility = Visibility.Collapsed;
-            MainWindow.Instance.CountIngredientText.Visibility = Visibility.Collapsed;
+            AllCostIngredientText.Visibility = Visibility.Collapsed;
+            CountIngredientText.Visibility = Visibility.Collapsed;
         }
         #endregion
 
@@ -154,7 +176,7 @@ namespace MyRecipes.View.Pages
 
         private void ValidateCountIngridient()
         {
-            MainWindow.Instance.CountIngredient = TestIEnumerableIngredients.Count();
+            CountIngredient = TestIEnumerableIngredients.Count();
         }
 
         private void ValidateTotalCountPage()

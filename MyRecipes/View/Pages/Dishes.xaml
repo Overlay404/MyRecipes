@@ -9,7 +9,7 @@
       Title="Dishes"
       DataContext="{Binding RelativeSource={RelativeSource Self}}">
     
-    <Grid>
+    <Grid Margin="10 20 0 0">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
@@ -37,15 +37,18 @@
                      MinWidth="100"
                      TextChanged="Search_TextChanged"/>
         </StackPanel>
-        <ItemsControl Grid.Row="1" ItemsSource="{Binding DishCollection}"
-                  Background="Transparent">
-            <ItemsControl.ItemsPanel>
+        <ScrollViewer Height="450" Grid.Row="1" Margin="0 40 0 0">
+        <ListView x:Name="DishesListView"
+                  ItemsSource="{Binding DishCollection}"
+                  Background="Transparent" 
+                  SelectionChanged="ListView_Selected">
+                <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Width="780" 
                                HorizontalAlignment="Center"/>
                 </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
+            </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid Width="230" Height="200" Margin="10">
                         <Grid.Background>
@@ -68,7 +71,8 @@
                         </StackPanel>
                     </Grid>
                 </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+            </ListView.ItemTemplate>
+        </ListView>
+        </ScrollViewer>
     </Grid>
 </Page>

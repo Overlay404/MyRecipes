@@ -54,6 +54,6 @@
             <Button Content="Выход" Click="Button_Click" Style="{StaticResource ButtonStyle}"
                     VerticalAlignment="Bottom"/>
         </DockPanel>
-        <Frame x:Name="ProductFrame" Grid.Column="1" Grid.Row="1" NavigationUIVisibility="Hidden" Navigated="ProductFrame_Navigated"/>
+        <Frame x:Name="ProductFrame" Grid.Column="1" Grid.RowSpan="2" NavigationUIVisibility="Hidden" Navigated="ProductFrame_Navigated" Margin="0 100 0 0"/>
     </Grid>
 </Window>
