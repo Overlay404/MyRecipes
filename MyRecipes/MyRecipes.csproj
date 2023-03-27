@@ -80,6 +80,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Windows\AddIngredientInDishes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -133,6 +137,9 @@
     </Compile>
     <Compile Include="View\Pages\IngredientPage.xaml.cs">
       <DependentUpon>IngredientPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Windows\AddIngredientInDishes.xaml.cs">
+      <DependentUpon>AddIngredientInDishes.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

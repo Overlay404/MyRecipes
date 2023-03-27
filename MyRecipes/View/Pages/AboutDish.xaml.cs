@@ -1,4 +1,5 @@
 ﻿using MyRecipes.Model;
+using MyRecipes.View.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,8 @@ namespace MyRecipes.View.Pages
     /// </summary>
     public partial class AboutDish : Page
     {
+        public static AboutDish Instance { get; private set; }
+
         public decimal CostDish
         {
             get { return (decimal)GetValue(CostDishProperty); }
@@ -51,6 +54,7 @@ namespace MyRecipes.View.Pages
             DestroyLogicApplication();
             DishObject = dish;
             InitializeComponent();
+            Instance = this;
             Dish = dish;
             CulcCostDishWithCount();
         }
@@ -89,6 +93,16 @@ namespace MyRecipes.View.Pages
                 return;
             }
             CostDish = Dish.AllSumDish * Count;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.Instance.ProductFrame.Navigate(new Dishes());
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            new AddIngredientInDishes().Show();
         }
     }
 }
