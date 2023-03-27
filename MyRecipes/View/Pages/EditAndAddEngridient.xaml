@@ -30,7 +30,7 @@
             <TextBox x:Name="Name"
                      Text="{Binding Ingredient.Name}"
                      Padding="5 3"
-                     MinWidth="200"/>
+                     MinWidth="200" PreviewTextInput="Name_PreviewTextInput"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal"
@@ -42,7 +42,7 @@
             <TextBox x:Name="Cost"
                      Text="{Binding Ingredient.Cost}"
                      MinWidth="200"
-                     Padding="5 3"/>
+                     Padding="5 3" PreviewTextInput="Cost_PreviewTextInput"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal"
@@ -55,7 +55,7 @@
                      Text="{Binding Ingredient.CostForCount}"
                      Padding="5 3"
                      MinWidth="150"
-                     Margin="0 0 10 0"/>
+                     Margin="0 0 10 0" PreviewTextInput="CountForCount_PreviewTextInput"/>
             <ComboBox ItemsSource="{Binding Units}"
                       MinWidth="100"
                       x:Name="CostForCountComboBox"
@@ -77,7 +77,7 @@
             <TextBox x:Name="Cousnt"
                      Text="{Binding Ingredient.AvailableCount}"
                      MinWidth="200"
-                     Padding="5 3"/>
+                     Padding="5 3" PreviewTextInput="Cousnt_PreviewTextInput"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal"

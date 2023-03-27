@@ -112,5 +112,24 @@ namespace MyRecipes.View.Pages
                                                MessageBoxImage.Warning);
         #endregion
 
+        private void Cost_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            e.Handled = "0123456789.".IndexOf(e.Text) < 0;
+        }
+
+        private void CountForCount_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            e.Handled = "0123456789".IndexOf(e.Text) < 0;
+        }
+
+        private void Cousnt_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            e.Handled = "0123456789".IndexOf(e.Text) < 0;
+        }
+
+        private void Name_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            e.Handled = "0123456789.,?/|\\()-_=+*&^%$#@!№;%:?".IndexOf(e.Text) > 0;
+        }
     }
 }
