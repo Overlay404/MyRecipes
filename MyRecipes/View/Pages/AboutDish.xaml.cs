@@ -37,6 +37,17 @@ namespace MyRecipes.View.Pages
 
 
 
+        public IEnumerable<CookingStage> CookingStage
+        {
+            get { return (IEnumerable<CookingStage>)GetValue(CookingStageProperty); }
+            set { SetValue(CookingStageProperty, value); }
+        }
+
+        public static readonly DependencyProperty CookingStageProperty =
+            DependencyProperty.Register("CookingStage", typeof(IEnumerable<CookingStage>), typeof(AboutDish));
+
+
+
         public IEnumerable<IngredientOfStage> IngredientOfStage
         {
             get { return (IEnumerable<IngredientOfStage>)GetValue(IngredientOfStageProperty); }
@@ -63,6 +74,7 @@ namespace MyRecipes.View.Pages
 
         public AboutDish(Dish dish)
         {
+            CookingStage = dish.CookingStage;
             IngredientOfStage = dish.IngredientOfStage;
             DestroyLogicApplication();
             DishObject = dish;
@@ -135,6 +147,14 @@ namespace MyRecipes.View.Pages
             App.db.SaveChanges();
             IngredientOfStage = Dish.IngredientOfStage;
             CulcCostDishWithCount();
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            if(DataCookingStage.SelectedItem == null)
+                new AddCookingStageInDishes().Show();
+            else
+                new AddCookingStageInDishes(DataCookingStage.SelectedItem as CookingStage).Show();
         }
         #endregion
     }
