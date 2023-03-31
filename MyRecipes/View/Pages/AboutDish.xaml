@@ -11,11 +11,15 @@
 
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="13*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="1" Margin="0 10 0 0">
+        <StackPanel Grid.Column="1" Margin="0 10 0 0" Grid.RowSpan="2">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Порций: "/>
                 <Button Content="-" Width="25"
@@ -32,60 +36,66 @@
         <Button Grid.ColumnSpan="2"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
-                Margin="0 20"
+                Margin="325,0,325,20"
                 Width="150" Height="35"
                 Content="Готовим!"
-                Click="Button_Click"/>
+                Click="Button_Click" Grid.Row="1"/>
+
+        <StackPanel Grid.Row="1" VerticalAlignment="Top">
+            <TextBlock HorizontalAlignment="Center" Text="Ингредиенты:"  Margin="0 10 0 0"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Удалить" Margin="5 5" Click="Button_Click_2"/>
+                <Button Content="Добавить" Margin="5 5" Click="Button_Click_1"/>
+            </StackPanel>
+            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding IngredientOfStage}" IsReadOnly="True"
+                                      x:Name="DataIngredient">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Наименование" Binding="{Binding Ingredient.Name}"/>
+                    <DataGridTextColumn Header="Кол-во" Binding="{Binding Quantity}"/>
+                    <DataGridTextColumn Header="Ед.изм." Binding="{Binding Ingredient.Unit.Name}"/>
+                    <DataGridTextColumn Header="Стоимость" Binding="{Binding Ingredient.CostForCount}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+
         <ContentControl Content="{Binding DishObject}" 
                         TextBlock.FontSize="15"
                         Grid.ColumnSpan="2"
-                        x:Name="ContentControl">
-        <ContentControl.ContentTemplate>
-            <DataTemplate>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="4*"/>
-                        <RowDefinition Height="10*"/>
-                        <RowDefinition Height="2*"/>
-                    </Grid.RowDefinitions>
-                    <StackPanel Margin="0 10 0 0">
-                        <TextBlock Text="{Binding Category.Name, StringFormat='Категория: {0}'}"/>
-                        <TextBlock Text="{Binding TimeInMiutes, StringFormat='Время на приготовление: {0} мин.'}"/>
-                    </StackPanel>
-                    
-                    <StackPanel Grid.Row="1" Margin="10">
-                        <TextBlock HorizontalAlignment="Center" Text="Ингредиенты:"  Margin="0 10 0 0"/>
-                            <Button Content="Добавить" HorizontalAlignment="Right" Margin="0 5" Click="Button_Click_1"/>
-                            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Ingredients}" IsReadOnly="True">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Наименование" Binding="{Binding Name}"/>
-                                <DataGridTextColumn Header="Кол-во" Binding="{Binding AvailableCount}"/>
-                                <DataGridTextColumn Header="Ед.изм." Binding="{Binding Unit.Name}"/>
-                                <DataGridTextColumn Header="Стоимость" Binding="{Binding CostForCount}"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                    </StackPanel>
-                    <StackPanel Grid.Row="1" Grid.Column="1" Margin="10">
-                        <TextBlock HorizontalAlignment="Center" Text="Приготовление:" Margin="0 10 0 30"/>
-                        <ScrollViewer Height="200">
-                            <ItemsControl ItemsSource="{Binding CookingStage}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <WrapPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
-                                        </WrapPanel>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </ScrollViewer>
-                    </StackPanel>
-                </Grid>
-            </DataTemplate>
-        </ContentControl.ContentTemplate>
-    </ContentControl>
+                        x:Name="ContentControl" Grid.RowSpan="2">
+            <ContentControl.ContentTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="4*"/>
+                            <RowDefinition Height="10*"/>
+                            <RowDefinition Height="2*"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Margin="0 10 0 0">
+                            <TextBlock Text="{Binding Category.Name, StringFormat='Категория: {0}'}"/>
+                            <TextBlock Text="{Binding TimeInMiutes, StringFormat='Время на приготовление: {0} мин.'}"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10">
+                            <TextBlock HorizontalAlignment="Center" Text="Приготовление:" Margin="0 10 0 30"/>
+                            <ScrollViewer Height="200">
+                                <ItemsControl ItemsSource="{Binding CookingStage}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <WrapPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
+                                            </WrapPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ContentControl.ContentTemplate>
+        </ContentControl>
     </Grid>
 </Page>

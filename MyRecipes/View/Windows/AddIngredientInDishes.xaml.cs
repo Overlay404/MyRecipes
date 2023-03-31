@@ -48,7 +48,14 @@ namespace MyRecipes.View.Windows
                 Count.Text = "1";
                 return;
             }
-            try
+
+            var objectIngredientOfStage = App.db.IngredientOfStage.FirstOrDefault(i => i.CookingStageId == cookingStage.Id && i.IngredientId == ingredient.Id);
+
+            if (objectIngredientOfStage != null)
+            {
+                objectIngredientOfStage.Quantity += count;
+            }
+            else
             {
                 App.db.IngredientOfStage.Local.Add(new IngredientOfStage
                 {
@@ -56,16 +63,12 @@ namespace MyRecipes.View.Windows
                     CookingStage = cookingStage,
                     Quantity = count
                 });
-                App.db.SaveChanges();
             }
-            catch
-            {
-                foreach (var entry in App.db.ChangeTracker.Entries().Where(entry => entry.State == System.Data.Entity.EntityState.Modified))
-                    entry.CurrentValues.SetValues(entry.OriginalValues);
-
-                MessageBox.Show("Такой ингредиент уже есть");
-            }
-            AboutDish.Instance.DishObject = AboutDish.Instance.Dish;
+            App.db.SaveChanges();
+            AboutDish.Instance.IngredientOfStage = AboutDish.Instance.Dish.IngredientOfStage;
+            AboutDish.Instance.CulcCostDishWithCount();
+            //MainWindow.Instance.ProductFrame.Navigate(new AboutDish(AboutDish.Instance.Dish));
+            Close();
         }
     }
 }

@@ -1,0 +1,23 @@
+﻿<Window x:Class="MyRecipes.View.Windows.AddCookingStageInDishes"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MyRecipes.View.Windows"
+         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Title="Добавление ингредиента" Height="190" Width="200"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Grid>
+        <StackPanel Margin="10">
+            <StackPanel Margin="0 10 0 0">
+                <TextBlock Text="Наименование шага готовки"/>
+                <TextBox x:Name="Description"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock Text="Время готовки"/>
+                <TextBox x:Name="Time"/>
+            </StackPanel>
+            <Button Content="Сохранить" Margin="0 30" Click="Button_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

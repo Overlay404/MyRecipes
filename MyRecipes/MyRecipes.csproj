@@ -80,6 +80,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Windows\AddCookingStageInDishes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Windows\AddIngredientInDishes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -137,6 +141,9 @@
     </Compile>
     <Compile Include="View\Pages\IngredientPage.xaml.cs">
       <DependentUpon>IngredientPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Windows\AddCookingStageInDishes.xaml.cs">
+      <DependentUpon>AddCookingStageInDishes.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Windows\AddIngredientInDishes.xaml.cs">
       <DependentUpon>AddIngredientInDishes.xaml</DependentUpon>

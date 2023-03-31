@@ -36,6 +36,18 @@ namespace MyRecipes.View.Pages
 
 
 
+
+        public IEnumerable<IngredientOfStage> IngredientOfStage
+        {
+            get { return (IEnumerable<IngredientOfStage>)GetValue(IngredientOfStageProperty); }
+            set { SetValue(IngredientOfStageProperty, value); }
+        }
+
+        public static readonly DependencyProperty IngredientOfStageProperty =
+            DependencyProperty.Register("IngredientOfStage", typeof(IEnumerable<IngredientOfStage>), typeof(AboutDish));
+
+
+
         public Dish DishObject
         {
             get { return (Dish)GetValue(DishesProperty); }
@@ -51,6 +63,7 @@ namespace MyRecipes.View.Pages
 
         public AboutDish(Dish dish)
         {
+            IngredientOfStage = dish.IngredientOfStage;
             DestroyLogicApplication();
             DishObject = dish;
             InitializeComponent();
@@ -85,7 +98,7 @@ namespace MyRecipes.View.Pages
             CulcCostDishWithCount();
         }
 
-        private void CulcCostDishWithCount()
+        public void CulcCostDishWithCount()
         {
             if (CountText == null || int.TryParse(CountText.Text.Trim(), out Count) == false || Dish == null)
             {
@@ -95,8 +108,17 @@ namespace MyRecipes.View.Pages
             CostDish = Dish.AllSumDish * Count;
         }
 
+        #region События
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            foreach(var item in IngredientOfStage)
+            {
+                if (item.Quantity > item.Ingredient.AvailableCount)
+                {
+                    MessageBox.Show("Количество игредиента(ов) в блюде превышает количество ингредиента(ов) в холодильнике");
+                    return;
+                }
+            }
             MainWindow.Instance.ProductFrame.Navigate(new Dishes());
         }
 
@@ -104,5 +126,16 @@ namespace MyRecipes.View.Pages
         {
             new AddIngredientInDishes().Show();
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            if(DataIngredient.SelectedItem == null) return;
+
+            App.db.IngredientOfStage.Remove(DataIngredient.SelectedItem as IngredientOfStage);
+            App.db.SaveChanges();
+            IngredientOfStage = Dish.IngredientOfStage;
+            CulcCostDishWithCount();
+        }
+        #endregion
     }
 }
