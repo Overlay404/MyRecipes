@@ -17,6 +17,7 @@ namespace MyRecipes
             db.Unit.Load();
             db.Category.Load();
             db.Dish.Load();
+            db.CookingStage.Load();
         }
     }
 }

@@ -134,27 +134,35 @@ namespace MyRecipes.View.Pages
             MainWindow.Instance.ProductFrame.Navigate(new Dishes());
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            new AddIngredientInDishes().Show();
-        }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            if(DataIngredient.SelectedItem == null) return;
-
-            App.db.IngredientOfStage.Remove(DataIngredient.SelectedItem as IngredientOfStage);
-            App.db.SaveChanges();
-            IngredientOfStage = Dish.IngredientOfStage;
-            CulcCostDishWithCount();
-        }
-
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            if(DataCookingStage.SelectedItem == null)
-                new AddCookingStageInDishes().Show();
-            else
-                new AddCookingStageInDishes(DataCookingStage.SelectedItem as CookingStage).Show();
+            if (DataCookingStage.SelectedItem == null)
+                return;
+
+            new AddCookingStageInDishes(DataCookingStage.SelectedItem as CookingStage).Show();
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            new AddCookingStageInDishes().Show();
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            DeleteCookingStage();
+        }
+
+        private void DeleteCookingStage()
+        {
+            if (MessageBox.Show("Вы уверены? Вы удалите и все ингредиенты для этого этапа!", "Оповещение", MessageBoxButton.YesNo) == MessageBoxResult.No) return;
+
+            var objectCookingStage = DataCookingStage.SelectedItem as CookingStage;
+            List<IngredientOfStage> listIngredientOfStage = App.db.IngredientOfStage.Where(i => i.CookingStageId == objectCookingStage.Id).ToList();
+
+            App.db.IngredientOfStage.RemoveRange(listIngredientOfStage);
+            App.db.CookingStage.Remove(objectCookingStage);
+
+            App.db.SaveChanges();
         }
         #endregion
     }

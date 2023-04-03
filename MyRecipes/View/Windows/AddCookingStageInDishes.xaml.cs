@@ -1,5 +1,6 @@
 ﻿using MyRecipes.Model;
 using MyRecipes.View.Pages;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 
@@ -12,44 +13,80 @@ namespace MyRecipes.View.Windows
     {
         public static CookingStage CookingStageObject { get; set; }
 
+        public static AddCookingStageInDishes Instance;
+
+        public IEnumerable<IngredientOfStage> IngredientOfStageInCookingStage
+        {
+            get { return (IEnumerable<IngredientOfStage>)GetValue(IngredientOfStageInCookingStageProperty); }
+            set { SetValue(IngredientOfStageInCookingStageProperty, value); }
+        }
+
+        public static readonly DependencyProperty IngredientOfStageInCookingStageProperty =
+            DependencyProperty.Register("IngredientOfStageInCookingStage", typeof(IEnumerable<IngredientOfStage>), typeof(AboutDish));
+
         public AddCookingStageInDishes(CookingStage cookingStage = null)
         {
-            InitializeComponent();
             CookingStageObject = cookingStage;
-            if(cookingStage != null)
+
+            CreateObjectInDataBase();
+            UpdateIngredientOfStage();
+            InitializeComponent();
+
+            Instance = this;
+
+            if (CookingStageObject != null)
             {
-                Description.Text = cookingStage.Description;
-                Time.Text = cookingStage.TimeInMinutes.ToString();
+                Description.Text = CookingStageObject.Description;
+                Time.Text = CookingStageObject.TimeInMinutes.ToString();
             }
+        }
+
+        public void UpdateIngredientOfStage()
+        {
+            IngredientOfStageInCookingStage = AboutDish.Instance.Dish.IngredientOfStage.Where(c => c.CookingStageId == CookingStageObject.Id);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var idDish = AboutDish.Instance.Dish.Id;
-
-            if (int.TryParse(Time.Text.Trim(), out int time))
-            {
+            if (int.TryParse(Time.Text.Trim(), out int time) == false)
                 return;
-            }
 
-            var objectEditingCookingStage = new CookingStage
-            {
-                DishId = idDish,
-                Description = Description.Text.Trim(),
-                TimeInMinutes = time
-            };
-
-            if (objectEditingCookingStage == null)
-            {
-                App.db.CookingStage.Add(objectEditingCookingStage);
-            }
-            else
-            {
-                CookingStageObject = objectEditingCookingStage;
-                //AboutDish.Instance.Dish.CookingStage.Where(c => c.Id == objectEditingCookingStage.Id) = objectEditingCookingStage;
-            }
+            CookingStageObject.Description = Description.Text.Trim();
+            CookingStageObject.TimeInMinutes = time;
 
             App.db.SaveChanges();
+            AboutDish.Instance.CookingStage = AboutDish.Instance.Dish.CookingStage;
+            Close();
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            new AddIngredientInDishes(CookingStageObject).Show();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            if (DataIngredient.SelectedItem == null) return;
+
+            App.db.IngredientOfStage.Remove(DataIngredient.SelectedItem as IngredientOfStage);
+            App.db.SaveChanges();
+            UpdateIngredientOfStage();
+            UpdateDataGrid();
+        }
+
+        private static void CreateObjectInDataBase()
+        {
+            if (CookingStageObject == null)
+            {
+                CookingStageObject = new CookingStage
+                {
+                    DishId = AboutDish.Instance.Dish.Id
+                };
+            }
+            if (App.db.CookingStage.Local.Contains(CookingStageObject) == false)
+                App.db.CookingStage.Local.Add(CookingStageObject);
+        }
+
+        public void UpdateDataGrid() => DataIngredient.Items.Refresh();
     }
 }

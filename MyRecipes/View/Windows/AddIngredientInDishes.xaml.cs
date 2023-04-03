@@ -30,11 +30,12 @@ namespace MyRecipes.View.Windows
         public static readonly DependencyProperty IngredientsProperty =
             DependencyProperty.Register("Ingredients", typeof(IEnumerable<Ingredient>), typeof(AddIngredientInDishes));
 
+        public CookingStage Stage { get; private set; }
 
-
-        public AddIngredientInDishes()
+        public AddIngredientInDishes(CookingStage stage)
         {
             Ingredients = App.db.Ingredient.Local;
+            Stage = stage;
             InitializeComponent();
         }
 
@@ -42,7 +43,7 @@ namespace MyRecipes.View.Windows
         {
             if (Ingredient.SelectedItem == null) return;
             var ingredient = Ingredient.SelectedItem as Ingredient;
-            var cookingStage = AboutDish.Instance.DishObject.CookingStage.FirstOrDefault();
+            var cookingStage = Stage;
             if (!int.TryParse(Count.Text.Trim(), out int count))
             {
                 Count.Text = "1";
@@ -64,10 +65,12 @@ namespace MyRecipes.View.Windows
                     Quantity = count
                 });
             }
+
+            AddCookingStageInDishes.Instance.UpdateIngredientOfStage();
+            AddCookingStageInDishes.Instance.UpdateDataGrid();
+
             App.db.SaveChanges();
-            AboutDish.Instance.IngredientOfStage = AboutDish.Instance.Dish.IngredientOfStage;
-            AboutDish.Instance.CulcCostDishWithCount();
-            //MainWindow.Instance.ProductFrame.Navigate(new AboutDish(AboutDish.Instance.Dish));
+            AddCookingStageInDishes.Instance.IngredientOfStageInCookingStage = AboutDish.Instance.Dish.IngredientOfStage.Where(i => i.CookingStageId == Stage.Id);
             Close();
         }
     }
