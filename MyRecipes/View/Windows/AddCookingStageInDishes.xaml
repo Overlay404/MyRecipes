@@ -21,22 +21,32 @@
                 <TextBox x:Name="Time"/>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="Удалить" Margin="5 5" Click="Button_Click_2"/>
-                <Button Content="Добавить" Margin="5 5" Click="Button_Click_1"/>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <Button Content="Удалить"
+                        Margin="5 5" Click="Button_Click_2"/>
+                
+                <Button Content="Добавить"
+                        Margin="5 5" Click="Button_Click_1"/>
             </StackPanel>
 
-            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding IngredientOfStageInCookingStage}" IsReadOnly="True"
-                                      x:Name="DataIngredient">
+            <DataGrid AutoGenerateColumns="False"
+                      ItemsSource="{Binding IngredientOfStageInCookingStage}" IsReadOnly="True"
+                      x:Name="DataIngredient">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Наименование" Binding="{Binding Ingredient.Name}"/>
-                    <DataGridTextColumn Header="Кол-во" Binding="{Binding Quantity}"/>
-                    <DataGridTextColumn Header="Ед.изм." Binding="{Binding Ingredient.Unit.Name}"/>
-                    <DataGridTextColumn Header="Стоимость" Binding="{Binding Ingredient.CostForCount}"/>
+                    <DataGridTextColumn Header="Наименование"
+                                        Binding="{Binding Ingredient.Name}"/>
+                    <DataGridTextColumn Header="Кол-во"
+                                        Binding="{Binding Quantity}"/>
+                    <DataGridTextColumn Header="Ед.изм."
+                                        Binding="{Binding Ingredient.Unit.Name}"/>
+                    <DataGridTextColumn Header="Стоимость"
+                                        Binding="{Binding Ingredient.CostForCount}"/>
                 </DataGrid.Columns>
             </DataGrid>
 
-            <Button Content="Сохранить" Margin="0 30" Click="Button_Click"/>
+            <Button Content="Сохранить" Margin="0 30"
+                    Click="Button_Click"/>
         </StackPanel>
     </Grid>
 </Window>

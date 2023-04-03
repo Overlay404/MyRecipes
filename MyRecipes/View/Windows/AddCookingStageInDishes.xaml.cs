@@ -53,13 +53,16 @@ namespace MyRecipes.View.Windows
             CookingStageObject.TimeInMinutes = time;
 
             App.db.SaveChanges();
+
             AboutDish.Instance.CookingStage = AboutDish.Instance.Dish.CookingStage;
+
+            MainWindow.Instance.ProductFrame.Navigate(AboutDish.Instance.Dish);
 
             Close();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e) =>
-            new AddIngredientInDishes(CookingStageObject).Show();
+            new AddIngredientInDishes(CookingStageObject).ShowDialog();
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {

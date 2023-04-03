@@ -36,15 +36,18 @@ namespace MyRecipes.View.Pages
 
             DestroyLogicApplication();
 
-            DishObject = dish;
-
             InitializeComponent();
+
+            UpdateContentControl();
 
             Instance = this;
             Dish = dish;
 
             CulcCostDishWithCount();
         }
+
+        public void UpdateContentControl() =>
+            ContentControl.Content = DishObject;
 
         private static void DestroyLogicApplication()
         {

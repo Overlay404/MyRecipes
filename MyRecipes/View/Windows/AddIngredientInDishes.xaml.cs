@@ -42,6 +42,9 @@ namespace MyRecipes.View.Windows
             App.db.SaveChanges();
 
             AddCookingStageInDishes.Instance.IngredientOfStageInCookingStage = AboutDish.Instance.Dish.IngredientOfStage.Where(i => i.CookingStageId == Stage.Id);
+
+            AddCookingStageInDishes.Instance.UpdateDataGrid();
+
             Close();
         }
 

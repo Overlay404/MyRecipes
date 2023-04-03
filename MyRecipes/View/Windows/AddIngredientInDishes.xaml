@@ -24,7 +24,8 @@
                 <TextBlock Text="Количество"/>
                 <TextBox x:Name="Count" Text="1"/>
             </StackPanel>
-            <Button Content="Сохранить" Margin="0 30" Click="Button_Click"/>
+            <Button Content="Сохранить"
+                    Margin="0 30" Click="Button_Click"/>
         </StackPanel>
     </Grid>
 </Window>
