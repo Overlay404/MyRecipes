@@ -41,5 +41,23 @@ namespace MyRecipes.View.Pages
 
         public static readonly DependencyProperty NumberEntriestOnOnePageProperty =
             DependencyProperty.Register("NumberEntriestOnOnePage", typeof(List<int>), typeof(IngredientPage));
+
+        public int CountIngredient
+        {
+            get { return (int)GetValue(CountIngredientProperty); }
+            set { SetValue(CountIngredientProperty, value); }
+        }
+
+        public static readonly DependencyProperty CountIngredientProperty =
+            DependencyProperty.Register("CountIngredient", typeof(int), typeof(MainWindow));
+
+        public decimal AllCostIngredient
+        {
+            get { return (decimal)GetValue(AllCostIngredientProperty); }
+            set { SetValue(AllCostIngredientProperty, value); }
+        }
+
+        public static readonly DependencyProperty AllCostIngredientProperty =
+            DependencyProperty.Register("AllCostIngredient", typeof(decimal), typeof(MainWindow));
     }
 }

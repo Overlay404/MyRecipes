@@ -132,6 +132,7 @@
     <Compile Include="View\Pages\AboutDish.xaml.cs">
       <DependentUpon>AboutDish.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Pages\DependencyProperties\AboutDish.Extension.cs" />
     <Compile Include="View\Pages\DependencyProperties\Dishes.Extension.cs" />
     <Compile Include="View\Pages\Dishes.xaml.cs">
       <DependentUpon>Dishes.xaml</DependentUpon>

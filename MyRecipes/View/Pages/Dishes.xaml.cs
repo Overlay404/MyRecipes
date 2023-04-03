@@ -1,19 +1,8 @@
 ﻿using MyRecipes.Model;
-using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MyRecipes.View.Pages
 {
@@ -26,9 +15,10 @@ namespace MyRecipes.View.Pages
         readonly List<Category> categories = new List<Category>();
         public Dishes()
         {
-            InitializateCategory();
             Categories = categories;
             DishCollection = dishes;
+
+            InitializateCategory();
 
             InitializeComponent();
         }
@@ -39,31 +29,35 @@ namespace MyRecipes.View.Pages
             App.db.Category.Local.ToList().ForEach((Category itemCategory) => categories.Add(itemCategory));
         }
 
-        private void CostForCountComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        private void CostForCountComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) =>
             UpdateListDish();
-        }
 
-        private void Search_TextChanged(object sender, TextChangedEventArgs e)
-        {
+        private void Search_TextChanged(object sender, TextChangedEventArgs e) =>
             UpdateListDish();
-        }
 
         private void UpdateListDish()
         {
             if (CostForCountComboBox == null || Search == null) return;
 
-            List<Dish> dishSort = App.db.Dish.Local.Where
-                (d => d.Category.Name.Equals((CostForCountComboBox.SelectedItem as Category).Name) && 
-                d.Name.ToLower().StartsWith(Search.Text.Trim().ToLower())).ToList();
-
-            if (CostForCountComboBox.SelectedIndex != 0) DishCollection = dishSort;
-            else DishCollection = dishes.Where(d => d.Name.ToLower().StartsWith(Search.Text.Trim().ToLower()));
+            IssuingValuesDishSortList();
         }
-
-        private void ListView_Selected(object sender, RoutedEventArgs e)
+        private void IssuingValuesDishSortList()
         {
-            MainWindow.Instance.ProductFrame.Navigate(new AboutDish(DishesListView.SelectedItem as Dish));
+            var dishList = App.db.Dish.Local.Where(d => d.Category.Name.Equals((CostForCountComboBox.SelectedItem as Category).Name) &&
+                                                        d.Name.ToLower().StartsWith(Search.Text.Trim().ToLower())).ToList();
+
+            ValidateCostForCountComboBox(dishList);
         }
+
+        private void ValidateCostForCountComboBox(List<Dish> dishSort)
+        {
+            if (CostForCountComboBox.SelectedIndex != 0)
+                DishCollection = dishSort;
+            else
+                DishCollection = dishes.Where(d => d.Name.ToLower().StartsWith(Search.Text.Trim().ToLower()));
+        }
+
+        private void ListView_Selected(object sender, RoutedEventArgs e) =>
+            MainWindow.Instance.ProductFrame.Navigate(new AboutDish(DishesListView.SelectedItem as Dish));
     }
 }

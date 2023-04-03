@@ -11,13 +11,20 @@ namespace MyRecipes
     {
         public static RecipesEntities db = new RecipesEntities();
 
-        public App()
+        public App() =>
+            LoadTablesOfDataBase();
+
+        /// <summary>
+        ///  Загрузка всех таблиц из базы
+        /// </summary>
+        private static void LoadTablesOfDataBase()
         {
             db.Ingredient.Load();
             db.Unit.Load();
             db.Category.Load();
             db.Dish.Load();
             db.CookingStage.Load();
+            db.IngredientOfStage.Load();
         }
     }
 }

@@ -14,26 +14,6 @@ namespace MyRecipes.View.Pages
     {
         private int CountEntriestOnPage = 4; // количество записей на одной странице
 
-        public int CountIngredient
-        {
-            get { return (int)GetValue(CountIngredientProperty); }
-            set { SetValue(CountIngredientProperty, value); }
-        }
-
-        public static readonly DependencyProperty CountIngredientProperty =
-            DependencyProperty.Register("CountIngredient", typeof(int), typeof(MainWindow));
-
-
-        public decimal AllCostIngredient
-        {
-            get { return (decimal)GetValue(AllCostIngredientProperty); }
-            set { SetValue(AllCostIngredientProperty, value); }
-        }
-
-        public static readonly DependencyProperty AllCostIngredientProperty =
-            DependencyProperty.Register("AllCostIngredient", typeof(decimal), typeof(MainWindow));
-
-
         public static IngredientPage Instance { get; private set; }
 
         private IEnumerable<Ingredient> TestIEnumerableIngredients;
@@ -58,6 +38,9 @@ namespace MyRecipes.View.Pages
         }
 
         #region Основыние методы до Инициализации
+        /// <summary>
+        /// Метод для вызова основных методов
+        /// </summary>
         private void CallingMethodsBeforeInitialization()
         {
             ValidateCountIngridient();
@@ -88,10 +71,7 @@ namespace MyRecipes.View.Pages
             if (IngredientDataGrid.SelectedItem == null)
                 return;
 
-            if (MessageBox.Show("Вы действительно хотите удалить эту запись?",
-                                "Уведомление",
-                                MessageBoxButton.YesNo,
-                                MessageBoxImage.Question) == MessageBoxResult.No)
+            if (AskDeleteEntry())
                 return;
 
             Ingredient ingredient = IngredientDataGrid.SelectedItem as Ingredient;
@@ -105,6 +85,7 @@ namespace MyRecipes.View.Pages
             ValidateTotalCountPage();
             ValidateCountIngridient();
         }
+
         #endregion
 
         #region Добавление
@@ -200,6 +181,21 @@ namespace MyRecipes.View.Pages
 
             CountEntriestOnPage = (int)CountEntriestComboBox.SelectedItem;
         }
+        #endregion
+
+        #region Методы сообщений
+        /// <summary>
+        /// Общий метод вывода сообщение для пользователя при удалении записи
+        /// </summary>
+        /// <returns> MessageBoxButton.YesNo </returns>
+        private static bool AskDeleteEntry()
+        {
+            return MessageBox.Show("Вы действительно хотите удалить эту запись?",
+                                            "Уведомление",
+                                            MessageBoxButton.YesNo,
+                                            MessageBoxImage.Question) == MessageBoxResult.No;
+        }
+
         #endregion
     }
 }

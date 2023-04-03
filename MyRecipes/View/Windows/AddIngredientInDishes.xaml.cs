@@ -1,18 +1,8 @@
 ﻿using MyRecipes.Model;
 using MyRecipes.View.Pages;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace MyRecipes.View.Windows
 {
@@ -36,42 +26,55 @@ namespace MyRecipes.View.Windows
         {
             Ingredients = App.db.Ingredient.Local;
             Stage = stage;
+
             InitializeComponent();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (Ingredient.SelectedItem == null) return;
-            var ingredient = Ingredient.SelectedItem as Ingredient;
-            var cookingStage = Stage;
-            if (!int.TryParse(Count.Text.Trim(), out int count))
-            {
-                Count.Text = "1";
-                return;
-            }
 
-            var objectIngredientOfStage = App.db.IngredientOfStage.FirstOrDefault(i => i.CookingStageId == cookingStage.Id && i.IngredientId == ingredient.Id);
-
-            if (objectIngredientOfStage != null)
-            {
-                objectIngredientOfStage.Quantity += count;
-            }
-            else
-            {
-                App.db.IngredientOfStage.Local.Add(new IngredientOfStage
-                {
-                    Ingredient = ingredient,
-                    CookingStage = cookingStage,
-                    Quantity = count
-                });
-            }
+            CheckingValuesInCount();
 
             AddCookingStageInDishes.Instance.UpdateIngredientOfStage();
             AddCookingStageInDishes.Instance.UpdateDataGrid();
 
             App.db.SaveChanges();
+
             AddCookingStageInDishes.Instance.IngredientOfStageInCookingStage = AboutDish.Instance.Dish.IngredientOfStage.Where(i => i.CookingStageId == Stage.Id);
             Close();
+        }
+
+        private void CheckingValuesInCount()
+        {
+            var ingredient = Ingredient.SelectedItem as Ingredient;
+            var cookingStage = Stage;
+
+            if (int.TryParse(Count.Text.Trim(), out int count) == false)
+            {
+                Count.Text = "1";
+                return;
+            }
+
+            ValidateObjectIngridientOfStage(ingredient, cookingStage, count); // изменение кол. или создание нового
+
+        }
+
+        private void ValidateObjectIngridientOfStage(Ingredient ingredient, CookingStage cookingStage, int count)
+        {
+            var objectIngredientOfStage = App.db.IngredientOfStage.FirstOrDefault(i => i.CookingStageId == cookingStage.Id && i.IngredientId == ingredient.Id);
+
+            if (objectIngredientOfStage != null)
+                objectIngredientOfStage.Quantity += count;
+            else
+            {
+                App.db.IngredientOfStage.Local.Add(new IngredientOfStage
+                {
+                    Ingredient = ingredient,
+                    CookingStageId = cookingStage.Id,
+                    Quantity = count
+                });
+            }
         }
     }
 }

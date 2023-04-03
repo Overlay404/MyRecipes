@@ -25,50 +25,7 @@ namespace MyRecipes.View.Pages
     {
         public static AboutDish Instance { get; private set; }
 
-        public decimal CostDish
-        {
-            get { return (decimal)GetValue(CostDishProperty); }
-            set { SetValue(CostDishProperty, value); }
-        }
-
-        public static readonly DependencyProperty CostDishProperty =
-            DependencyProperty.Register("CostDish", typeof(decimal), typeof(AboutDish));
-
-
-
-
-        public IEnumerable<CookingStage> CookingStage
-        {
-            get { return (IEnumerable<CookingStage>)GetValue(CookingStageProperty); }
-            set { SetValue(CookingStageProperty, value); }
-        }
-
-        public static readonly DependencyProperty CookingStageProperty =
-            DependencyProperty.Register("CookingStage", typeof(IEnumerable<CookingStage>), typeof(AboutDish));
-
-
-
-        public IEnumerable<IngredientOfStage> IngredientOfStage
-        {
-            get { return (IEnumerable<IngredientOfStage>)GetValue(IngredientOfStageProperty); }
-            set { SetValue(IngredientOfStageProperty, value); }
-        }
-
-        public static readonly DependencyProperty IngredientOfStageProperty =
-            DependencyProperty.Register("IngredientOfStage", typeof(IEnumerable<IngredientOfStage>), typeof(AboutDish));
-
-
-
-        public Dish DishObject
-        {
-            get { return (Dish)GetValue(DishesProperty); }
-            set { SetValue(DishesProperty, value); }
-        }
-
         public Dish Dish { get; }
-
-        public static readonly DependencyProperty DishesProperty =
-            DependencyProperty.Register("DishObject", typeof(Dish), typeof(AboutDish));
         
         public int Count;
 
@@ -76,11 +33,16 @@ namespace MyRecipes.View.Pages
         {
             CookingStage = dish.CookingStage;
             IngredientOfStage = dish.IngredientOfStage;
+
             DestroyLogicApplication();
+
             DishObject = dish;
+
             InitializeComponent();
+
             Instance = this;
             Dish = dish;
+
             CulcCostDishWithCount();
         }
 
@@ -105,10 +67,8 @@ namespace MyRecipes.View.Pages
             CountText.Text = (int.Parse(CountText.Text) - 1).ToString();
         }
 
-        private void CountTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
+        private void CountTextBox_TextChanged(object sender, TextChangedEventArgs e) =>
             CulcCostDishWithCount();
-        }
 
         public void CulcCostDishWithCount()
         {
@@ -142,15 +102,11 @@ namespace MyRecipes.View.Pages
             new AddCookingStageInDishes(DataCookingStage.SelectedItem as CookingStage).Show();
         }
 
-        private void Button_Click_4(object sender, RoutedEventArgs e)
-        {
+        private void Button_Click_4(object sender, RoutedEventArgs e) =>
             new AddCookingStageInDishes().Show();
-        }
 
-        private void Button_Click_5(object sender, RoutedEventArgs e)
-        {
+        private void Button_Click_5(object sender, RoutedEventArgs e) =>
             DeleteCookingStage();
-        }
 
         private void DeleteCookingStage()
         {

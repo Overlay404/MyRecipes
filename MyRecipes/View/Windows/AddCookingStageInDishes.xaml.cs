@@ -41,10 +41,8 @@ namespace MyRecipes.View.Windows
             }
         }
 
-        public void UpdateIngredientOfStage()
-        {
+        public void UpdateIngredientOfStage() =>
             IngredientOfStageInCookingStage = AboutDish.Instance.Dish.IngredientOfStage.Where(c => c.CookingStageId == CookingStageObject.Id);
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -56,13 +54,12 @@ namespace MyRecipes.View.Windows
 
             App.db.SaveChanges();
             AboutDish.Instance.CookingStage = AboutDish.Instance.Dish.CookingStage;
+
             Close();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
+        private void Button_Click_1(object sender, RoutedEventArgs e) =>
             new AddIngredientInDishes(CookingStageObject).Show();
-        }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
@@ -70,11 +67,20 @@ namespace MyRecipes.View.Windows
 
             App.db.IngredientOfStage.Remove(DataIngredient.SelectedItem as IngredientOfStage);
             App.db.SaveChanges();
+
             UpdateIngredientOfStage();
             UpdateDataGrid();
         }
 
         private static void CreateObjectInDataBase()
+        {
+            ValidateCookingStageObjectOnNull();
+
+            if (App.db.CookingStage.Local.Contains(CookingStageObject) == false)
+                App.db.CookingStage.Local.Add(CookingStageObject);
+        }
+
+        private static void ValidateCookingStageObjectOnNull()
         {
             if (CookingStageObject == null)
             {
@@ -83,8 +89,6 @@ namespace MyRecipes.View.Windows
                     DishId = AboutDish.Instance.Dish.Id
                 };
             }
-            if (App.db.CookingStage.Local.Contains(CookingStageObject) == false)
-                App.db.CookingStage.Local.Add(CookingStageObject);
         }
 
         public void UpdateDataGrid() => DataIngredient.Items.Refresh();

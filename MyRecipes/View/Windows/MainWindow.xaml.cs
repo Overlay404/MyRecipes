@@ -1,18 +1,6 @@
 ﻿using MyRecipes.View.Pages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MyRecipes
 {
@@ -32,28 +20,21 @@ namespace MyRecipes
         public static readonly DependencyProperty NameChapterProperty =
             DependencyProperty.Register("NameChapter", typeof(string), typeof(MainWindow));
 
-
-       
-
         public MainWindow()
         {
-            
             InitializeComponent();
+
             Instance = this;
             ProductFrame.Navigate(new IngredientPage());
         }
 
         //Кнопка Блюд
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
+        private void Button_Click_1(object sender, RoutedEventArgs e) =>
             ProductFrame.Navigate(new Dishes());
-        }
 
         //Кнопка ингредиенты
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
+        private void Button_Click_2(object sender, RoutedEventArgs e) =>
             ProductFrame.Navigate(new IngredientPage());
-        }
 
         //Событие навигации
         private void ProductFrame_Navigated(object sender, NavigationEventArgs e)
@@ -71,9 +52,7 @@ namespace MyRecipes
         }
 
         //Кнопка выхода из приложения
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
+        private void Button_Click(object sender, RoutedEventArgs e) =>
             Application.Current.Shutdown();
-        }
     }
 }

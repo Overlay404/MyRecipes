@@ -13,16 +13,21 @@ namespace MyRecipes.View.Pages
     {
         public EditAndAddEngridient(Ingredient ingredient = null)
         {
-            if (ingredient == null)
-                ContentButtonEditOrAdd = "Добавить";
-            else
-                ContentButtonEditOrAdd = "Сохранить";
+            ValidateIngridientOnNull(ingredient);
 
             Ingredient = ingredient ?? new Ingredient();
 
             Units = App.db.Unit.Local.ToList();
 
             InitializeComponent();
+        }
+
+        private void ValidateIngridientOnNull(Ingredient ingredient)
+        {
+            if (ingredient == null)
+                ContentButtonEditOrAdd = "Добавить";
+            else
+                ContentButtonEditOrAdd = "Сохранить";
         }
 
         private void Button_Click_Cancellation(object sender, RoutedEventArgs e)
@@ -33,6 +38,11 @@ namespace MyRecipes.View.Pages
                 return;
             }
 
+            ValidateOfButtonClosing();
+        }
+
+        private void ValidateOfButtonClosing()
+        {
             switch (AskClose())
             {
                 case MessageBoxResult.Yes:
@@ -54,6 +64,11 @@ namespace MyRecipes.View.Pages
                 return;
             }
 
+            ValidateSaveDataInDateBase();
+        }
+
+        private void ValidateSaveDataInDateBase()
+        {
             switch (Ask())
             {
                 case MessageBoxResult.Yes:
@@ -101,35 +116,38 @@ namespace MyRecipes.View.Pages
             CostForCountComboBox.SelectedItem != null;
 
         #region Методы сообщений
+
+        /// <summary>
+        /// Общий метод для вывода сообщения пользовотелю о сохранении данных
+        /// </summary>
+        /// <returns> MessageBoxResult.YesNo </returns>
         private MessageBoxResult Ask() => MessageBox.Show("Вы действительно хотите сохранить измененные данные",
                                                            "Уведомление",
                                                            MessageBoxButton.YesNo,
                                                            MessageBoxImage.Warning);
 
+        /// <summary>
+        /// Общий метод для вывода сообщения пользовотелю при выходе
+        /// </summary>
+        /// <returns> MessageBoxResult.YesNo </returns>
         private MessageBoxResult AskClose() => MessageBox.Show("Вы действительно хотите выйти, данные не сохранятся",
                                                "Уведомление",
                                                MessageBoxButton.YesNo,
                                                MessageBoxImage.Warning);
         #endregion
 
-        private void Cost_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
-        {
+        #region Проверка значений
+        private void Cost_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e) =>
             e.Handled = "0123456789.".IndexOf(e.Text) < 0;
-        }
 
-        private void CountForCount_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
-        {
+        private void CountForCount_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e) =>
             e.Handled = "0123456789".IndexOf(e.Text) < 0;
-        }
 
-        private void Cousnt_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
-        {
+        private void Cousnt_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e) =>
             e.Handled = "0123456789".IndexOf(e.Text) < 0;
-        }
 
-        private void Name_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
-        {
+        private void Name_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e) =>
             e.Handled = "0123456789.,?/|\\()-_=+*&^%$#@!№;%:?".IndexOf(e.Text) > 0;
-        }
+        #endregion
     }
 }
