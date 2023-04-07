@@ -25,6 +25,7 @@
                 <TextBox x:Name="Count" Text="1"/>
             </StackPanel>
             <Button Content="Сохранить"
+                    Style="{StaticResource ButtonStyle}"
                     Margin="0 30" Click="Button_Click"/>
         </StackPanel>
     </Grid>

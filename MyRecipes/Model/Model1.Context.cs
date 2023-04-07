@@ -30,6 +30,7 @@ namespace MyRecipes.Model
         public virtual DbSet<Dish> Dish { get; set; }
         public virtual DbSet<Ingredient> Ingredient { get; set; }
         public virtual DbSet<IngredientOfStage> IngredientOfStage { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Unit> Unit { get; set; }
     }
 }

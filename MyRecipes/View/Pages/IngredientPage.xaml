@@ -33,7 +33,8 @@
                   AutoGenerateColumns="False"
                   Grid.ColumnSpan="3"
                   Margin="0 88 0 0"
-                  Background="White">
+                  Background="White"
+                  LoadingRow="IngredientDataGrid_LoadingRow">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Наименование ингредиентов"
                                     Binding="{Binding Name}"
@@ -58,12 +59,12 @@
                             <StackPanel>
                                 <Button Content="Редактровать"
                                         FontStyle="Oblique"
-                                        Foreground="Blue"
+                                        Foreground="Blue" Style="{StaticResource ButtonStyle}"
                                         Click="ButtonEdit_Click"/>
 
                                 <Button Content="Удалить"
                                         FontStyle="Oblique"
-                                        Foreground="Red"
+                                        Foreground="Red" Style="{StaticResource ButtonStyle}"
                                         Click="ButtonDelete_Click"/>
                             </StackPanel>
                         </DataTemplate>
@@ -77,11 +78,11 @@
                     Grid.Row="1"
                     HorizontalAlignment="Center">
             <Button Content="&lt;&lt;"
-                    Margin="0 0 20 0"
+                    Margin="0 0 20 0" Style="{StaticResource ButtonStyle}"
                     Padding="5 3"
                     Click="ShiftOnAllPageLeft"/>
 
-            <Button Content="&lt;"
+            <Button Content="&lt;" Style="{StaticResource ButtonStyle}"
                     Margin="0 0 20 0"
                     Padding="5 3"
                     Click="ShiftOnOnePageLeft"/>
@@ -102,11 +103,11 @@
             </StackPanel>
 
             <Button Content=">"
-                    Margin="0 0 20 0"
+                    Margin="0 0 20 0" Style="{StaticResource ButtonStyle}"
                     Padding="5 3"
                     Click="ShiftOnOnePageRigth"/>
 
-            <Button Content=">>"
+            <Button Content=">>" Style="{StaticResource ButtonStyle}"
                     Padding="5 3"
                     Click="ShiftOnAllPageRigth"/>
         </StackPanel>
@@ -115,10 +116,11 @@
                     Grid.Column="1"
                     Grid.Row="1">
 
-            <TextBlock Text="Количество записей на одной странице:"/>
+            <TextBlock Text="Количество записей на одной странице:" Margin="0 0 10 0" VerticalAlignment="Center"/>
             <ComboBox ItemsSource="{Binding NumberEntriestOnOnePage}"
                       x:Name="CountEntriestComboBox"
                       SelectedIndex="0"
+                      VerticalAlignment="Center"
                       SelectionChanged="CountEntriestComboBox_SelectionChanged">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -128,7 +130,7 @@
             </ComboBox>
         </StackPanel>
 
-        <Button Grid.Column="2"
+        <Button Grid.Column="2" Style="{StaticResource ButtonStyle}"
                 Grid.Row="1"
                 Content="+"
                 VerticalAlignment="Center"

@@ -5,17 +5,18 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="0c986cd64d3c4a5f9f18a603d64ab93e" Name="Diagram1" ZoomLevel="99">
-        <EntityTypeShape EntityType="RecipesModel.Category" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="RecipesModel.CookingStage" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="RecipesModel.Dish" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="RecipesModel.Ingredient" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="RecipesModel.IngredientOfStage" Width="1.875" PointX="7.5" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="RecipesModel.Unit" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
-        <AssociationConnector Association="RecipesModel.FK_Dish_Category" ManuallyRouted="false" />
-        <AssociationConnector Association="RecipesModel.FK_CookingStage_Dish" ManuallyRouted="false" />
-        <AssociationConnector Association="RecipesModel.FK_IngredientOfStage_CookingStage" ManuallyRouted="false" />
-        <AssociationConnector Association="RecipesModel.FK_Ingredient_Unit" ManuallyRouted="false" />
-        <AssociationConnector Association="RecipesModel.FK_IngredientOfStage_Ingredient" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="RecipesModel.Category" Width="1.5" PointX="0.75" PointY="1.5" />
+        <EntityTypeShape EntityType="RecipesModel.CookingStage" Width="1.5" PointX="5.25" PointY="1.25" />
+        <EntityTypeShape EntityType="RecipesModel.Dish" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="RecipesModel.Ingredient" Width="1.5" PointX="5.25" PointY="5" />
+        <EntityTypeShape EntityType="RecipesModel.IngredientOfStage" Width="1.5" PointX="7.5" PointY="1.375" />
+        <EntityTypeShape EntityType="RecipesModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="4.75" />
+        <EntityTypeShape EntityType="RecipesModel.Unit" Width="1.5" PointX="3" PointY="5.5" />
+        <AssociationConnector Association="RecipesModel.FK_Dish_Category" />
+        <AssociationConnector Association="RecipesModel.FK_CookingStage_Dish" />
+        <AssociationConnector Association="RecipesModel.FK_IngredientOfStage_CookingStage" />
+        <AssociationConnector Association="RecipesModel.FK_Ingredient_Unit" />
+        <AssociationConnector Association="RecipesModel.FK_IngredientOfStage_Ingredient" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

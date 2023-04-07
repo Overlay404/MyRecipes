@@ -44,6 +44,8 @@ namespace MyRecipes.View.Pages
             Dish = dish;
 
             CulcCostDishWithCount();
+
+            ContentControl.Content = Dish;
         }
 
         public void UpdateContentControl() =>
@@ -102,11 +104,14 @@ namespace MyRecipes.View.Pages
             if (DataCookingStage.SelectedItem == null)
                 return;
 
-            new AddCookingStageInDishes(DataCookingStage.SelectedItem as CookingStage).Show();
+            new AddCookingStageInDishes(DataCookingStage.SelectedItem as CookingStage).ShowDialog();
         }
 
-        private void Button_Click_4(object sender, RoutedEventArgs e) =>
-            new AddCookingStageInDishes().Show();
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            new AddCookingStageInDishes().ShowDialog();
+            UpdatePageDish();
+        }
 
         private void Button_Click_5(object sender, RoutedEventArgs e) =>
             DeleteCookingStage();
@@ -122,6 +127,13 @@ namespace MyRecipes.View.Pages
             App.db.CookingStage.Remove(objectCookingStage);
 
             App.db.SaveChanges();
+
+            UpdatePageDish();
+        }
+
+        private static void UpdatePageDish()
+        {
+            MainWindow.Instance.ProductFrame.Navigate(new AboutDish(App.db.Dish.FirstOrDefault(d => d.Id == AboutDish.Instance.Dish.Id)));
         }
         #endregion
     }

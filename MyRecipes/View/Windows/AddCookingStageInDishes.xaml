@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MyRecipes.View.Windows"
          mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="Добавление ингредиента" SizeToContent="Height"
-        Width="500"
+        Width="500" WindowStyle="None"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
         <StackPanel Margin="10">
@@ -23,10 +23,10 @@
 
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right">
-                <Button Content="Удалить"
+                <Button Content="Удалить" Style="{StaticResource ButtonStyle}"
                         Margin="5 5" Click="Button_Click_2"/>
-                
-                <Button Content="Добавить"
+
+                <Button Content="Добавить" Style="{StaticResource ButtonStyle}"
                         Margin="5 5" Click="Button_Click_1"/>
             </StackPanel>
 
@@ -46,7 +46,7 @@
             </DataGrid>
 
             <Button Content="Сохранить" Margin="0 30"
-                    Click="Button_Click"/>
+                    Click="Button_Click" Style="{StaticResource ButtonStyle}"/>
         </StackPanel>
     </Grid>
 </Window>

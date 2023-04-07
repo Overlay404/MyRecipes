@@ -34,7 +34,7 @@ namespace MyRecipes.View.Windows
         {
             if (Ingredient.SelectedItem == null) return;
 
-            CheckingValuesInCount();
+            bool IsExit = CheckingValuesInCount();
 
             AddCookingStageInDishes.Instance.UpdateIngredientOfStage();
             AddCookingStageInDishes.Instance.UpdateDataGrid();
@@ -42,13 +42,17 @@ namespace MyRecipes.View.Windows
             App.db.SaveChanges();
 
             AddCookingStageInDishes.Instance.IngredientOfStageInCookingStage = AboutDish.Instance.Dish.IngredientOfStage.Where(i => i.CookingStageId == Stage.Id);
+            AddCookingStageInDishes.Instance.DataIngredient.ItemsSource = AboutDish.Instance.Dish.IngredientOfStage.Where(i => i.CookingStageId == Stage.Id);
 
             AddCookingStageInDishes.Instance.UpdateDataGrid();
 
-            Close();
+            if (IsExit)
+            {
+                Close();
+            }
         }
 
-        private void CheckingValuesInCount()
+        private bool CheckingValuesInCount()
         {
             var ingredient = Ingredient.SelectedItem as Ingredient;
             var cookingStage = Stage;
@@ -56,19 +60,24 @@ namespace MyRecipes.View.Windows
             if (int.TryParse(Count.Text.Trim(), out int count) == false)
             {
                 Count.Text = "1";
-                return;
+                return false;
             }
 
-            ValidateObjectIngridientOfStage(ingredient, cookingStage, count); // изменение кол. или создание нового
+            return ValidateObjectIngridientOfStage(ingredient, cookingStage, count);
 
         }
 
-        private void ValidateObjectIngridientOfStage(Ingredient ingredient, CookingStage cookingStage, int count)
+        private bool ValidateObjectIngridientOfStage(Ingredient ingredient, CookingStage cookingStage, int count)
         {
-            var objectIngredientOfStage = App.db.IngredientOfStage.FirstOrDefault(i => i.CookingStageId == cookingStage.Id && i.IngredientId == ingredient.Id);
+            var ListCookingStageInDish = AboutDish.Instance.Dish.CookingStage.Select(c => c.Id);
+            var objectIngredientOfStage = App.db.IngredientOfStage.FirstOrDefault(i => ListCookingStageInDish.Contains(i.CookingStageId) && i.IngredientId == ingredient.Id);
 
             if (objectIngredientOfStage != null)
-                objectIngredientOfStage.Quantity += count;
+            {
+                MessageBox.Show("Такой игредиент уже есть в одной из стадий");
+                return false;
+            }
+
             else
             {
                 App.db.IngredientOfStage.Local.Add(new IngredientOfStage
@@ -77,7 +86,10 @@ namespace MyRecipes.View.Windows
                     CookingStageId = cookingStage.Id,
                     Quantity = count
                 });
+                return true;
             }
+
+
         }
     }
 }

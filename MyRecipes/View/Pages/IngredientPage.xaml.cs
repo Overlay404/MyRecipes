@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace MyRecipes.View.Pages
 {
@@ -197,5 +198,19 @@ namespace MyRecipes.View.Pages
         }
 
         #endregion
+
+        private void IngredientDataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            Ingredient product = (Ingredient)e.Row.DataContext;
+
+            if (product.AvailableCount < 60)
+                e.Row.Background = new SolidColorBrush(Colors.LightGreen);
+
+            else if (product.AvailableCount > 60 && product.AvailableCount < 200)
+                e.Row.Background = new SolidColorBrush(Colors.LightYellow);
+
+            else
+                e.Row.Background = new SolidColorBrush(Colors.LightPink);
+        }
     }
 }

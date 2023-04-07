@@ -22,18 +22,20 @@
         <StackPanel Grid.Column="1" Margin="0 10 0 0" Grid.RowSpan="2">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Порций: "/>
-                <Button Content="-" Width="25"
+                <Button Content="-" Width="25" Style="{StaticResource ButtonStyle}"
                                     Margin="10 0" Click="MinusBtn_Click"/>
                 <TextBox Text="1" Width="40" 
                                      TextAlignment="Center" 
                                      TextChanged="CountTextBox_TextChanged"
                                      x:Name="CountText"/>
                 <Button Content="+" Width="25" 
-                                    Margin="10 0" Click="PlusBtn_Click"/>
+                        Style="{StaticResource ButtonStyle}"
+                        Margin="10 0" Click="PlusBtn_Click"/>
             </StackPanel>
             <TextBlock Text="{Binding CostDish, StringFormat='Общая стоимость: {0:f} руб.'}"/>
         </StackPanel>
         <Button Grid.ColumnSpan="2"
+                Style="{StaticResource ButtonStyle}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
                 Margin="325,0,325,20"
@@ -57,9 +59,9 @@
         <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Margin="10 0 0 0">
             <TextBlock HorizontalAlignment="Center" Text="Приготовление:" Margin="0 10 0 0"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="Удалить" HorizontalAlignment="Right" Margin="4 4" Click="Button_Click_5"/>
-                <Button Content="Добавить стадию" HorizontalAlignment="Right" Margin="4 4" Click="Button_Click_4"/>
-                <Button Content="Редактировать стадии" HorizontalAlignment="Right" Margin="4 4" Click="Button_Click_3"/>
+                <Button Content="Удалить" HorizontalAlignment="Right" Margin="4 4" Style="{StaticResource ButtonStyle}" Click="Button_Click_5"/>
+                <Button Content="Добавить стадию" HorizontalAlignment="Right" Margin="4 4" Style="{StaticResource ButtonStyle}" Click="Button_Click_4"/>
+                <Button Content="Редактировать стадии" HorizontalAlignment="Right" Margin="4 4" Style="{StaticResource ButtonStyle}" Click="Button_Click_3"/>
             </StackPanel>
             <ScrollViewer Height="200">
                 <ListView ItemsSource="{Binding CookingStage}" x:Name="DataCookingStage">

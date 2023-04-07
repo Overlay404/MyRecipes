@@ -15,6 +15,8 @@ namespace MyRecipes.View.Windows
 
         public static AddCookingStageInDishes Instance;
 
+        public int time;
+
         public IEnumerable<IngredientOfStage> IngredientOfStageInCookingStage
         {
             get { return (IEnumerable<IngredientOfStage>)GetValue(IngredientOfStageInCookingStageProperty); }
@@ -46,19 +48,33 @@ namespace MyRecipes.View.Windows
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (int.TryParse(Time.Text.Trim(), out int time) == false)
+            if (ValidateDataInWindow(out time))
+            {
+                MessageBox.Show("Не введены значения");
+                foreach (var entry in App.db.ChangeTracker.Entries().Where(entry => entry.State == System.Data.Entity.EntityState.Modified))
+                    entry.CurrentValues.SetValues(entry.OriginalValues);
                 return;
+            }
 
             CookingStageObject.Description = Description.Text.Trim();
             CookingStageObject.TimeInMinutes = time;
 
+            
             App.db.SaveChanges();
 
             AboutDish.Instance.CookingStage = AboutDish.Instance.Dish.CookingStage;
 
-            MainWindow.Instance.ProductFrame.Navigate(AboutDish.Instance.Dish);
+            MainWindow.Instance.ProductFrame.Navigate(new AboutDish(App.db.Dish.FirstOrDefault(d => d.Id == AboutDish.Instance.Dish.Id)));
 
             Close();
+        }
+
+        private bool ValidateDataInWindow(out int time)
+        {
+            if (int.TryParse(Time.Text.Trim(), out time) == false || Description.Text.Trim().Equals(""))
+                return true;
+            else
+                return false;
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e) =>
@@ -69,7 +85,7 @@ namespace MyRecipes.View.Windows
             if (DataIngredient.SelectedItem == null) return;
 
             App.db.IngredientOfStage.Remove(DataIngredient.SelectedItem as IngredientOfStage);
-            App.db.SaveChanges();
+
 
             UpdateIngredientOfStage();
             UpdateDataGrid();

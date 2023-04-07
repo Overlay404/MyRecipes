@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:MyRecipes"
              StartupUri="View/Windows/MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="Button" x:Key="ButtonStyle">
+            <Setter Property="Background" Value="Orange"/>
+            <Setter Property="Margin" Value="10 6"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
     </Application.Resources>
 </Application>
